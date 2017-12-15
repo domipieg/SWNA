@@ -6,6 +6,7 @@
 package prz.swna.controller;
 
 import java.io.IOException;
+import java.security.Principal;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -46,10 +47,7 @@ public class IndexController {
         word.setWord(wordToSave);
         wordRepository.save(word);
     }
-    
-    @RequestMapping(value = "/login", method = GET)
-    public String login() {
-        return "login";
-    }
-    
+
+  
+
 }
