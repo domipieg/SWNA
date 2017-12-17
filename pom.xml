@@ -70,8 +70,12 @@
             <artifactId>jjwt</artifactId>
             <version>0.6.0</version>
         </dependency>
-
-
+        <dependency>
+            <groupId>com.google.cloud</groupId>
+            <artifactId>google-cloud-translate</artifactId>
+            <version>0.6.0</version>
+            <type>jar</type>
+        </dependency>
     </dependencies>
     
     <dependencyManagement>
