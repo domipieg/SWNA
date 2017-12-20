@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package prz.swna.utils;
 
 import java.util.ArrayList;
@@ -10,12 +5,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-/**
- *
- * @author
- */
 public class WordOrganizer {
-    public List<String> organize(String article) {
+
+    public ArrayList<String> organize(String article) {
         List<String> results = new ArrayList<>();
         HashMap<String, Integer> wordCounter = new HashMap<>();
         article = article.replaceAll("[^a-zA-Z]", " ");
@@ -23,7 +15,7 @@ public class WordOrganizer {
         String[] words = article.split("(?<=[,.])|(?=[,.])|\\s+");
         fillHashMap(words, wordCounter);
         fillResultList(wordCounter, results);
-        return results;
+        return (ArrayList<String>) results;
     }
 
     private void fillResultList(HashMap<String, Integer> wordCounter, List<String> results) {

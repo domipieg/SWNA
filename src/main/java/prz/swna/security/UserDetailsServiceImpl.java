@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package prz.swna.security;
 
 import org.springframework.security.core.userdetails.User;
@@ -15,6 +10,7 @@ import static java.util.Collections.emptyList;
 
 @Service
 public class UserDetailsServiceImpl implements UserDetailsService {
+
     private ApplicationUserRepository applicationUserRepository;
 
     public UserDetailsServiceImpl(ApplicationUserRepository applicationUserRepository) {
