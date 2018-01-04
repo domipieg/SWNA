@@ -19,6 +19,14 @@ import static org.springframework.web.bind.annotation.RequestMethod.PUT;
 import prz.swna.model.DeletedWord;
 import prz.swna.services.WordService;
 
+import java.io.BufferedReader;
+import java.io.DataOutputStream;
+import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
+import java.net.URL;
+
+import javax.net.ssl.HttpsURLConnection;
+
 @RestController
 public class IndexController {
 
@@ -67,13 +75,28 @@ public class IndexController {
 
     @RequestMapping(value = "/api/englishWord", method = POST, produces = "text/html; charset=utf-8")
     @ResponseBody
-    public String getEnglishWord(@RequestBody String sourceText) {
-        Translate translate = TranslateOptions.getDefaultInstance().getService();
-        Translation translation
-                = translate.translate(
-                        sourceText,
-                        TranslateOption.sourceLanguage("en"),
-                        TranslateOption.targetLanguage("pl"));
-        return JSONObject.quote(translation.getTranslatedText());
+    public String getEnglishWord(@RequestBody String sourceText) throws Exception {
+        String url = "https://translate.googleapis.com/translate_a/single?client=gtx&sl=en&tl=pl&dt=t&q=" 
+                + sourceText;
+        URL obj = new URL(url);
+        HttpURLConnection con = (HttpURLConnection) obj.openConnection();
+        con.setRequestMethod("GET");
+        con.setRequestProperty("User-Agent", "Mozilla/5.0");
+        BufferedReader in = new BufferedReader(
+                new InputStreamReader(con.getInputStream(), "UTF-8"));
+        String inputLine;
+        StringBuffer response = new StringBuffer();
+
+        while ((inputLine = in.readLine()) != null) {
+            response.append(inputLine);
+        }
+        in.close();
+        String responseString = response.toString();
+        
+        int index = responseString.indexOf('\"');
+        String firstCut = responseString.substring(index+1, responseString.length());
+        index = firstCut.indexOf('\"');
+        String result = firstCut.substring(0, index);
+        return result;
     }
 }
